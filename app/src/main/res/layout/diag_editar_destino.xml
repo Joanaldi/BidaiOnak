@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#74C8FF"> <!-- Cambio de color de fondo del LinearLayout -->
+
+    <EditText
+        android:id="@+id/editTextNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:background="#FFFFFF" /> <!-- Cambio de color de fondo del EditText -->
+
+    <EditText
+        android:id="@+id/editTextCoste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Coste"
+        android:background="#FFFFFF" /> <!-- Cambio de color de fondo del EditText -->
+
+    <EditText
+        android:id="@+id/editTextTransporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Transporte"
+        android:background="#FFFFFF" /> <!-- Cambio de color de fondo del EditText -->
+
+</LinearLayout>

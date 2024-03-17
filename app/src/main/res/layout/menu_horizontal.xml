@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#74C8FF">
+
+    <!-- Contenedor de fragmentos (si es necesario) -->
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#6FC3FB"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- Barra de título -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="BidaiOnak"
+            android:textAlignment="center"
+            android:textSize="80dp"
+            android:textStyle="bold" />
+
+        <!-- Contenedor de botones -->
+
+        <LinearLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="40dp">
+
+            <!-- Botón Destinos -->
+            <Button
+                android:id="@+id/buttonDestinos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FF7043"
+                android:text="Destinos"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FF7043 "
+                android:textSize="34sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- Botones de idioma -->
+            <Button
+                android:id="@+id/buttonES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/circular_button"
+                android:text="ES"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:backgroundTint="#4CAF50" />
+
+            <Button
+                android:id="@+id/buttonEU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/circular_button"
+                android:text="EU"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:backgroundTint="#FF5722" />
+
+            <Button
+                android:id="@+id/buttonEN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/circular_button"
+                android:text="EN"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:backgroundTint="#2196F3" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Contenedor de botones de idioma -->
+
+</RelativeLayout>

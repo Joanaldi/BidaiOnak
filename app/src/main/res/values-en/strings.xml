@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BidaiOnak</string>
+    <string name="añadir">Add</string>
+    <string name="destinos">Destinations</string>
+    <string name="coste_total">Total Cost</string>
+    <string name="transporte">Transport</string>
+    <string name="nombre_destino">Destination Name</string>
+    <string name="coste_total_destino">Total Destination Cost</string>
+    <string name="medios_transporte">Transport Modes</string>
+    <string name="nombre">Name</string>
+    <string name="coste">Cost</string>
+</resources>

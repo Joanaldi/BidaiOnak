@@ -1,0 +1,9 @@
+<resources>
+    <string-array name="tipos_transporte">
+        <item>Avión</item>
+        <item>Tren</item>
+        <item>Autobús</item>
+        <item>Coche</item>
+        <!-- Agrega aquí más tipos de transporte si es necesario -->
+    </string-array>
+</resources>

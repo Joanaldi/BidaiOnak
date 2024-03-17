@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BidaiOnak</string>
+    <string name="añadir">Gehitu</string>
+    <string name="destinos">Helmuga</string>
+    <string name="coste_total">Guztira Gastu</string>
+    <string name="transporte">Garraioa</string>
+    <string name="nombre_destino">Helmugaren Izena</string>
+    <string name="coste_total_destino">Helmugaren Guztira Gastua</string>
+    <string name="medios_transporte">Garraio Moduak</string>
+    <string name="nombre">Izena</string>
+    <string name="coste">Gastua</string>
+</resources>

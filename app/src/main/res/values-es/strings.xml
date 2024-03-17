@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BidaiOnak</string>
+    <string name="selecciona_idioma">Selecciona un idioma:</string>
+    <string name="es">Castellano</string>
+    <string name="en">Inglés</string>
+    <string name="fr">Francés</string>
+    <string name="ch">Chino</string>
+    <string name="eu">Euskera</string>
+    <string name="seleccionar_idioma">Seleccionar idioma</string>
+</resources>
