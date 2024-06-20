@@ -6,13 +6,22 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -21,6 +30,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ListsDestinos extends AppCompatActivity {
@@ -37,13 +53,18 @@ public class ListsDestinos extends AppCompatActivity {
 
         destinosList = new ArrayList<>();
 
+        //Obtener el nombre y la foto
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("usuario");
+        cargarUsuario(name);
+
         // Configurar el RecyclerView
         recyclerView = findViewById(R.id.recyclerViewDestinos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DestinoAdap(this, destinosList);
         recyclerView.setAdapter(adapter);
 
-        // Configurar el botón de añadir
+        // Configurar el botón para añadir
         Button buttonAdd = findViewById(R.id.buttonAnadir);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +73,96 @@ public class ListsDestinos extends AppCompatActivity {
             }
         });
 
-        // Cargar destinos existentes al iniciar la actividad
         cargarDestinos();
+    }
+
+    private void cargarUsuario(String name){
+        TextView textViewUser = findViewById(R.id.usuario);
+        textViewUser.setText(name);
+        // URL del php para cargar la imagen
+        String url = "http://34.44.136.78:81/get_image.php";
+        String parametros = "usuario=" + Uri.encode(name);
+        Log.d("Datos enviados", parametros);
+
+        // Ejecutar la tarea para recuperar la imagen
+        new ObtenerImagenTask().execute(url, parametros);
+    }
+
+    private void mostrarImagen(Bitmap imagen) {
+        ImageView imageView = findViewById(R.id.avatarUsuario);
+        imageView.setImageBitmap(imagen);
+    }
+
+    private class ObtenerImagenTask extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            String urlString = params[0];
+            String parametros = params[1];
+            Bitmap imagen = null;
+
+            try {
+                Log.e("prueba", "entra en el try");
+                URL url = new URL(urlString);
+                HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+                conexion.setRequestMethod("POST");
+                conexion.setDoOutput(true);
+
+                // Escribir los parámetros en la solicitud
+                OutputStream outputStream = conexion.getOutputStream();
+                outputStream.write(parametros.getBytes(StandardCharsets.UTF_8));
+                outputStream.flush();
+                outputStream.close();
+
+
+                // Establecer conexión HTTP y recibir la respuesta del servidor
+                int responseCode = conexion.getResponseCode();
+                Log.e("Respuesta", String.valueOf(responseCode));
+
+                // Verificar si la conexión fue exitosa
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = conexion.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+
+                    // Construir el StringBuilder
+                    while ((line = bufferedReader.readLine()) != null) {
+                        Log.d("Buff",line);
+                        stringBuilder.append(line);
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+
+                    // Obtener el string de la respuesta del servidor
+                    String base64String = stringBuilder.toString();
+                    Log.d("Data","Image: "+base64String);
+
+                    byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+                    imagen = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+
+                } else {
+                    Log.d("Error","Imagen no recibida correctamente");
+                }
+
+                conexion.disconnect();
+
+            } catch (Exception e) {
+                Log.e("Error", "Error al recuperar la imagen: " + e.getMessage());
+            }
+
+            return imagen;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap imagen) {
+            if (imagen != null) {
+                mostrarImagen(imagen);
+            } else {
+                Log.e("Error", "No se pudo obtener la imagen o está vacia");
+            }
+        }
     }
 
     private void mostrarDialogoAñadir() {
@@ -113,6 +222,7 @@ public class ListsDestinos extends AppCompatActivity {
                     .setContentText("Se ha agregado un nuevo destino a la lista.")
                     .setVibrate(new long[]{0, 1000, 500, 1000})
                     .setAutoCancel(true);
+            Log.e("1","prueba");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Destinos", NotificationManager.IMPORTANCE_DEFAULT);
